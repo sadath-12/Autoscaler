@@ -1,0 +1,19 @@
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: mongodb-exporter-monitor
+  namespace: default
+  labels:
+    app: mongodb-exporter
+    release: prom  
+spec:
+  selector:
+    matchLabels:
+      app: mongodb-exporter
+  endpoints:
+  - port: metrics
+    path: /metrics
+    interval: 30s
+    scheme: http
+    tlsConfig:
+      insecureSkipVerify: true
